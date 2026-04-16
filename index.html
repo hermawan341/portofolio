@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+     <meta name="description" content="Hermawan adalah Fullstack Developer dari Bogor, Indonesia yang membuat website modern menggunakan Next.js, Tailwind CSS, dan MongoDB.">
+<meta property="og:title" content="Hermawan - Portofolio">
+<meta property="og:description" content="Hermawan adalah Fullstack Developer dari Bogor, Indonesia yang membuat website modern menggunakan Next.js, Tailwind CSS, dan MongoDB.">
+<meta property="og:image" content="https://portofolio-two-delta-40.vercel.app/preview.png">
+<meta property="og:url" content="https://portofolio-two-delta-40.vercel.app">
+<meta property="og:type" content="website">
+    <meta name="google-site-verification" content="HUYhrVpCMgCleZZ3XVlDzna_Or0UOhhEnkKt44fnc7I" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermawan - Fullstack Developer Portfolio</title>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "alternateName": "Hermawan Dev",
+  "@type": "Person",
+  "name": "Hermawan",
+  "url": "https://portofolio-two-delta-40.vercel.app/",
+  "image": "https://portofolio-two-delta-40.vercel.app/gambar.png",
+  "jobTitle": "Fullstack Developer",
+  "description": "Fullstack Developer dari Bogor, Indonesia yang fokus pada Next.js, Tailwind CSS, dan MongoDB.",
+  "address": {
+    "@type": "Place",
+    "addressLocality": "Bogor",
+    "addressCountry": "Indonesia"
+  },
+  "sameAs": [
+    "https://github.com/hermawan341",
+    "https://www.instagram.com/u483920_null",
+    "https://vm.tiktok.com/ZS98pfNRuTdLR-0vMkO/"
+  ]
+}
+</script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome untuk Icon (Tanpa Emoji) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Library QR Generator & Scanner -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <style>
+        /* Variabel Warna & Tema (Saweria Vibe) */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --border-color: #1a1a1a;
+            --shadow-color: #1a1a1a;
+            
+            /* Social Media Colors (Start -> Hover) */
+            --gh-start: #808080;   --gh-hover: #000000;
+            --tt-start: #808080;   --tt-hover: #000000;
+            --ig-start: #8E24AA;   --ig-hover: #E1306C;
+            --wa-start: #1B5E20;   --wa-hover: #25D366;
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* Mencegah seleksi teks sembarangan */
+        }
+
+        body {
+            font-family: 'Comfortaa', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Dekorasi Latar Belakang (Langit/Bumi Elegan) */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            z-index: -1;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        body::before {
+            top: -100px; right: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, transparent 20%, #000 20%, #000 21%, transparent 21%),
+                        radial-gradient(circle, transparent 40%, #000 40%, #000 41%, transparent 41%),
+                        radial-gradient(circle, transparent 60%, #000 60%, #000 61%, transparent 61%);
+            border-radius: 50%;
+        }
+        body::after {
+            bottom: -50px; left: -100px;
+            width: 300px; height: 100px;
+            background-color: transparent;
+            border: 4px solid #000;
+            border-radius: 50%;
+            transform: rotate(-15deg);
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #fff; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Comfortaa', sans-serif; font-weight: 700; }
+        .mono-text { font-family: 'IBM Plex Mono', monospace; }
+
+        /* Header Sticky */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 55px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid var(--border-color);
+            display: flex; align-items: center; justify-content: space-between;
+            z-index: 1000; padding: 0 20px;
+        }
+        .marquee-container {
+            flex: 1; overflow: hidden; white-space: nowrap; margin-right: 20px;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+        .marquee-text {
+            display: inline-block; font-weight: 600;
+            animation: marquee 12s linear infinite;
+        }
+        @keyframes marquee { 
+            0% { transform: translateX(100%); } 
+            100% { transform: translateX(-100%); } 
+        }
+        .clock {
+            font-family: 'IBM Plex Mono', monospace; font-weight: 600;
+            background: #f0f0f0; border: 2px solid #000; padding: 4px 12px;
+            border-radius: 8px; box-shadow: 2px 2px 0px #000; white-space: nowrap;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 800px; margin: 0 auto;
+            padding: 90px 20px 120px 20px; /* Space for header and bottom nav */
+            display: flex; flex-direction: column; gap: 30px;
+        }
+
+        /* Saweria Card Style */
+        .card {
+            background: #ffffff;
+            border: 3px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 8px 8px 0px var(--shadow-color);
+            padding: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Profile Section */
+        .profile-section { text-align: center; }
+        .avatar-wrap {
+            width: 140px; height: 140px; margin: 0 auto 20px auto;
+            border-radius: 50%; overflow: hidden;
+            border: 4px solid var(--border-color);
+            box-shadow: 5px 5px 0px var(--shadow-color);
+            background: #f8f8f8;
+        }
+        /* Tag Placeholder Wajib */
+        .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .profile-name { font-size: 2rem; margin-bottom: 5px; }
+        .profile-location {
+            font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem;
+            color: #555; background: #f0f0f0; display: inline-block;
+            padding: 5px 15px; border-radius: 20px; border: 2px solid #000;
+        }
+
+        /* Social Buttons */
+        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+        .btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: 'Comfortaa', sans-serif; font-weight: 700; font-size: 1rem;
+            text-decoration: none; padding: 15px;
+            border: 3px solid var(--border-color); border-radius: 14px;
+            box-shadow: 5px 5px 0px var(--shadow-color);
+            cursor: pointer; transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            color: #fff; position: relative; overflow: hidden;
+        }
+        .btn i { font-size: 1.2rem; }
+        .btn:active { transform: translate(5px, 5px); box-shadow: 0px 0px 0px var(--shadow-color); }
+        
+        /* Specific Button Colors */
+        .btn-gh { background-color: var(--gh-start); }
+        .btn-gh:hover { background-color: var(--gh-hover); }
+        
+        .btn-tt { background-color: var(--tt-start); }
+        .btn-tt:hover { background-color: var(--tt-hover); }
+        
+        .btn-ig { background-color: var(--ig-start); }
+        .btn-ig:hover { background-color: var(--ig-hover); }
+        
+        .btn-wa { background-color: var(--wa-start); }
+        .btn-wa:hover { background-color: var(--wa-hover); }
+
+        /* Countdown Card */
+        .countdown-title { text-align: center; margin-bottom: 15px; font-size: 1.2rem; }
+        .countdown-display {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+            font-family: 'IBM Plex Mono', monospace; font-size: 1.1rem; font-weight: 600; text-align: center;
+        }
+        .time-box {
+            background: #fff; border: 2px solid #000; border-radius: 10px;
+            padding: 10px 15px; box-shadow: 3px 3px 0px #000; display: inline-block;
+        }
+
+        /* Birthday Decoration */
+        .birthday-card {
+            display: none; text-align: center;
+            background: #fff9e6; border-color: #ff9800; box-shadow: 8px 8px 0px #ff9800;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .birthday-card h2 { color: #e65100; margin-bottom: 10px; font-size: 1.8rem; }
+        .birthday-card i { color: #ff5722; font-size: 3rem; margin-bottom: 15px; animation: bounce 2s infinite; }
+
+        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* Tools View Section (Hidden by default) */
+        .tool-panel { display: none; animation: fadeIn 0.4s ease; }
+        .tool-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* General Tool Layout */
+        .tool-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 1.4rem; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        .input-group { margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .input-box {
+            font-family: 'IBM Plex Mono', monospace; padding: 12px; border: 2px solid #000;
+            border-radius: 10px; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05); font-size: 1rem; width: 100%;
+        }
+        .action-btn {
+            background: #fff; color: #000; padding: 12px 20px; border: 2px solid #000;
+            border-radius: 10px; box-shadow: 4px 4px 0px #000; font-family: 'Comfortaa', sans-serif;
+            font-weight: 700; cursor: pointer; transition: all 0.2s; text-align: center;
+        }
+        .action-btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px #000; }
+        
+        /* QR Visuals */
+        .qr-result-box { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 20px; }
+        canvas#qr-canvas { border: 4px solid #000; border-radius: 10px; padding: 10px; background: #fff; }
+        #reader { width: 100%; border: 2px solid #000; border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
+        .scan-result-container {
+            margin-top: 15px; padding: 15px; background: #f9f9f9; border: 2px dashed #000; border-radius: 10px; text-align: center;
+            font-family: 'IBM Plex Mono', monospace; word-break: break-all;
+        }
+        .link-highlight { color: #d81b60; font-weight: bold; text-decoration: underline; text-underline-offset: 4px; display: inline-block; padding: 5px; }
+
+        /* File Preview Visuals */
+        .preview-area {
+            width: 100%; height: 350px; border: 2px solid #000; border-radius: 10px;
+            overflow: auto; background: #fafafa; margin-top: 15px;
+        }
+        iframe#preview-iframe { width: 100%; height: 100%; border: none; background: #fff; }
+        pre#preview-pre { padding: 15px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; white-space: pre-wrap; word-wrap: break-word; color: #333; }
+
+        /* Bottom Nav Tools Dock */
+        .bottom-dock {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            border: 3px solid #000; border-radius: 20px;
+            box-shadow: 6px 6px 0px #000; display: flex; gap: 10px; padding: 10px; z-index: 1000;
+        }
+        .dock-btn {
+            background: transparent; border: none; padding: 10px 15px; border-radius: 12px;
+            font-family: 'Comfortaa', sans-serif; font-weight: 600; color: #000; cursor: pointer;
+            transition: all 0.2s; display: flex; align-items: center; gap: 8px; border: 2px solid transparent;
+        }
+        .dock-btn:hover { background: #f0f0f0; border: 2px solid #ccc; }
+        .dock-btn.active { background: #000; color: #fff; box-shadow: 2px 2px 0px #666; border: 2px solid #000; }
+        
+        /* Animasi Elemen Awal */
+        .animate-up { opacity: 0; transform: translateY(30px); animation: slideUp 0.6s ease forwards; }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .card { padding: 25px 20px; }
+            .social-grid { grid-template-columns: 1fr 1fr; }
+            .bottom-dock { width: 90%; justify-content: center; padding: 8px; flex-wrap: wrap; }
+            .dock-btn { flex: 1; justify-content: center; font-size: 0.85rem; padding: 8px; }
+            .marquee-container { width: 50%; }
+        }
+.btn, .action-btn, .dock-btn, a, button {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    touch-action: manipulation;
+}
+
+.btn:focus,
+.btn:focus-visible,
+.action-btn:focus,
+.action-btn:focus-visible,
+.dock-btn:focus,
+.dock-btn:focus-visible,
+a:focus,
+button:focus {
+    outline: none;
+}
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="marquee-container">
+            <span class="marquee-text"><i class="fa-solid fa-star" style="font-size:0.8em; margin-right:5px;"></i> jangan lupa follow media sosial gua <i class="fa-solid fa-star" style="font-size:0.8em; margin-left:5px;"></i></span>
+        </div>
+        <div class="clock" id="realtime-clock">00:00:00</div>
+    </header>
+
+    <main>
+        <!-- Profile Card -->
+        <section class="card profile-section animate-up" style="animation-delay: 0.1s;">
+
+    <!-- VIDEO MODE (ULTAH) -->
+    <div id="profile-video" style="display:none;">
+        <video id="bday-vid" autoplay muted playsinline 
+            style="width:100%; height:100%; aspect-ratio:16/9; object-fit:cover; border-radius:15px;">
+            <source src="birthday.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- NORMAL MODE -->
+    <div id="normal-profile">
+        <div class="avatar-wrap">
+            <img src="gambar.jpg" alt="deskripsi" />
+        </div>
+        <h1 class="profile-name">Hermawan</h1>
+         <p style="margin-top:10px; font-size:0.95rem; color:#555;">
+Hermawan adalah seorang Fullstack Developer dari Bogor, Indonesia yang berfokus pada pembuatan website modern menggunakan Next.js, Tailwind CSS, dan MongoDB.
+</p>
+<p style="margin-top:5px; font-size:0.85rem; color:#777;">
+Skills: Next.js, Tailwind CSS, MongoDB, JavaScript
+</p>
+        <div class="profile-location">
+            <i class="fa-solid fa-location-dot"></i> Indonesia • Bogor
+        </div>
+    </div>
+
+</section>
+
+<audio id="click-sound" src="click.mp3"></audio>
+
+<audio id="intro-sound" src="intro.mp3"></audio>
+
+        <!-- Social Media Card -->
+        <section class="card animate-up" style="animation-delay: 0.2s;">
+            <div class="social-grid">
+                <a href="https://vm.tiktok.com/ZS98pfNRuTdLR-0vMkO/" target="_blank" class="btn btn-tt">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </a>
+                <a href="https://wa.me/qr/5OGZY4KAY5Z7I1" target="_blank" class="btn btn-wa">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://www.instagram.com/u483920_null?igsh=MXA4OGZ0OWJ4b3plbg==" target="_blank" class="btn btn-ig">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+                <a href="https://github.com/hermawan341" target="_blank" class="btn btn-gh">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </div>
+        </section>
+
+        <!-- Birthday Countdown Card -->
+        <section class="card animate-up" id="countdown-wrapper" style="animation-delay: 0.3s;" data-nosnippet>
+            <h2 class="countdown-title"><i class="fa-solid fa-hourglass-half"></i> Menuju Ulang Tahun</h2>
+            <div class="countdown-display" id="countdown-display">
+                <div class="time-box" id="cd-months">0 bulan</div>
+                <div class="time-box" id="cd-days">0 hari</div>
+                <div class="time-box" id="cd-hours">0 jam</div>
+                <div class="time-box" id="cd-minutes">0 menit</div>
+                <div class="time-box" id="cd-seconds">0 detik</div>
+            </div>
+        </section>
+
+        <!-- Birthday Greeting Card (Muncul saat 16 April) -->
+        <section class="card birthday-card" id="birthday-greeting">
+            <i class="fa-solid fa-cake-candles"></i>
+            <h2>Selamat Ulang Tahun Hermawan!</h2>
+            <p class="mono-text">Semoga hari ini luar biasa dan penuh kebahagiaan!</p>
+        </section>
+
+        <!-- Area Dynamic Tools -->
+        <!-- 1. QR Generator -->
+        <section class="card tool-panel" id="tool-qr-gen">
+            <h2 class="tool-header"><i class="fa-solid fa-qrcode"></i> QR Generator</h2>
+            <div class="input-group">
+                <input type="text" id="qr-input-text" class="input-box" placeholder="Masukkan teks atau link disini..." autocomplete="off">
+                <button class="action-btn" onclick="generateQR()"><i class="fa-solid fa-wand-magic-sparkles"></i> Buat QR</button>
+            </div>
+            <div class="qr-result-box" id="qr-result-box" style="display: none;">
+                <canvas id="qr-canvas"></canvas>
+                <button class="action-btn" onclick="downloadQR()"><i class="fa-solid fa-download"></i> Download QR</button>
+            </div>
+        </section>
+
+        <!-- 2. QR Scanner -->
+        <section class="card tool-panel" id="tool-qr-scan">
+            <h2 class="tool-header"><i class="fa-solid fa-camera"></i> QR Scanner</h2>
+            <div style="display: flex; gap:10px; margin-bottom: 15px; flex-wrap: wrap;">
+                <button class="action-btn" style="flex:1;" onclick="startCameraScan()"><i class="fa-solid fa-camera-retro"></i> Kamera</button>
+                <button class="action-btn" style="flex:1;" onclick="document.getElementById('qr-upload-input').click()"><i class="fa-solid fa-image"></i> Upload Foto</button>
+                <input type="file" id="qr-upload-input" accept="image/*" style="display: none;" onchange="handleFileScan(event)">
+            </div>
+            <div id="reader-container" style="display:none;">
+                <div id="reader"></div>
+                <button class="action-btn" style="width:100%; margin-bottom: 15px; background: #ffcccc;" onclick="stopCamera()"><i class="fa-solid fa-stop"></i> Tutup Kamera</button>
+            </div>
+            <div class="scan-result-container" id="scan-result-container" style="display: none;">
+                <p style="margin-bottom: 8px; font-weight: bold;"><i class="fa-solid fa-clipboard-check"></i> Hasil Scan:</p>
+                <div id="scan-result-text"></div>
+            </div>
+        </section>
+
+        <!-- 3. File Previewer -->
+        <section class="card tool-panel" id="tool-file-prev">
+            <h2 class="tool-header"><i class="fa-solid fa-file-code"></i> File Preview</h2>
+            <p style="margin-bottom: 15px; font-size: 0.9rem; color:#555;"><i class="fa-solid fa-circle-info"></i> Dukungan: .html, .css, .js</p>
+            <button class="action-btn" style="width: 100%;" onclick="document.getElementById('file-preview-input').click()"><i class="fa-solid fa-folder-open"></i> Pilih File</button>
+            <input type="file" id="file-preview-input" accept=".html,.css,.js" style="display: none;" onchange="handleFilePreview(event)">
+            
+            <div class="preview-area" id="preview-area" style="display: none;">
+                <iframe id="preview-iframe" style="display: none;"></iframe>
+                <pre id="preview-pre" style="display: none;"><code></code></pre>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation Tools -->
+    <nav class="bottom-dock">
+        <button class="dock-btn" onclick="toggleTool('tool-qr-gen', this)"><i class="fa-solid fa-qrcode"></i> Generator</button>
+        <button class="dock-btn" onclick="toggleTool('tool-qr-scan', this)"><i class="fa-solid fa-expand"></i> Scanner</button>
+        <button class="dock-btn" onclick="toggleTool('tool-file-prev', this)"><i class="fa-solid fa-file-code"></i> Preview</button>
+        <button class="action-btn" onclick="refreshPage()">
+    <i class="fa-solid fa-rotate-right"></i> Refresh
+</button>
+    </nav>
+
+    <!-- Script Utama -->
+    <script>
+function refreshPage() {
+    location.reload();
+}
+function playClick() {
+    const sound = document.getElementById("click-sound");
+    sound.currentTime = 0;
+    sound.play();
+
+    if (navigator.vibrate) {
+        navigator.vibrate(50);
+    }
+}
+
+window.addEventListener("load", () => {
+    const now = new Date();
+    const isBirthday = (now.getMonth() === 3 && now.getDate() === 16);
+
+    const normalIntro = document.getElementById("intro-sound");
+
+    const normalProfile = document.getElementById("normal-profile");
+    const videoProfile = document.getElementById("profile-video");
+    const vid = document.getElementById("bday-vid");
+
+    if (isBirthday) {
+        normalProfile.style.display = "none";
+        videoProfile.style.display = "block";
+
+        vid.muted = false;
+
+        vid.play().catch(() => {
+            document.addEventListener("click", () => {
+                vid.play();
+            }, { once: true });
+        });
+
+    } else {
+        normalIntro.play().catch(() => {
+            document.addEventListener("click", () => {
+                normalIntro.play();
+            }, { once: true });
+        });
+    }
+});
+
+        // 1. Hilangkan Loading Screen
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+        });
+
+document.querySelectorAll("button, .btn, .dock-btn, .action-btn").forEach(el => {
+    el.addEventListener("click", playClick);
+});
+
+        // 2. Real-time Clock di Header
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('realtime-clock').textContent = `${h}:${m}:${s}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 3. Logika Countdown Ulang Tahun (16 April)
+        function updateCountdown() {
+            const now = new Date();
+            const isBirthdayToday = (now.getMonth() === 3 && now.getDate() === 16); // Bulan 3 = April
+            const wrapper = document.getElementById('countdown-wrapper');
+            const greeting = document.getElementById('birthday-greeting');
+
+            if (isBirthdayToday) {
+                wrapper.style.display = 'none';
+                greeting.style.display = 'block';
+                return;
+            } else {
+                wrapper.style.display = 'block';
+                greeting.style.display = 'none';
+            }
+
+            // Tentukan target April 16 selanjutnya
+            let targetYear = now.getFullYear();
+            let targetDate = new Date(targetYear, 3, 16, 0, 0, 0);
+            
+            // Jika hari ini sudah lewat 16 April (misal 17 April), target lompat ke tahun depan
+            if (now.getTime() > targetDate.getTime()) {
+                targetDate.setFullYear(targetYear + 1);
+            }
+
+            // Hitung selisih
+            let diffMs = targetDate - now;
+
+            // Kalkulasi matematis sisa waktu
+            let d = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            let h = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+            let m = Math.floor((diffMs / 1000 / 60) % 60);
+            let s = Math.floor((diffMs / 1000) % 60);
+
+            // Aproksimasi bulan dan sisa hari untuk display (1 bulan ~ 30 hari)
+            let months = Math.floor(d / 30);
+            let days = d % 30;
+
+            document.getElementById('cd-months').textContent = `${months} bulan`;
+            document.getElementById('cd-days').textContent = `${days} hari`;
+            document.getElementById('cd-hours').textContent = `${h} jam`;
+            document.getElementById('cd-minutes').textContent = `${m} menit`;
+            document.getElementById('cd-seconds').textContent = `${s} detik`;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 4. Navigasi Tools (Dock Bawah)
+        function toggleTool(toolId, btnElement) {
+            // Jika tombol yang diklik sudah aktif, tutup panelnya
+            if(btnElement.classList.contains('active')){
+                document.getElementById(toolId).classList.remove('active');
+                btnElement.classList.remove('active');
+                return;
+            }
+
+            // Sembunyikan semua panel
+            const panels = document.querySelectorAll('.tool-panel');
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            // Hapus class active dari semua tombol
+            const btns = document.querySelectorAll('.dock-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+
+            // Tampilkan yang dipilih
+            document.getElementById(toolId).classList.add('active');
+            btnElement.classList.add('active');
+
+            // Hentikan kamera jika panel scanner ditutup
+            if (toolId !== 'tool-qr-scan') stopCamera();
+
+            // Auto scroll perlahan ke area tool
+            setTimeout(() => {
+                document.getElementById(toolId).scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        // 5. Fitur QR Generator
+        let qriousInstance = null;
+        function generateQR() {
+            const text = document.getElementById('qr-input-text').value.trim();
+            if (!text) {
+                alert("Masukkan teks atau link terlebih dahulu!");
+                return;
+            }
+            
+            const canvas = document.getElementById('qr-canvas');
+            if(!qriousInstance) {
+                qriousInstance = new QRious({
+                    element: canvas,
+                    size: 200,
+                    background: 'white',
+                    foreground: 'black',
+                    level: 'H'
+                });
+            }
+            qriousInstance.value = text;
+            document.getElementById('qr-result-box').style.display = 'flex';
+        }
+        
+        function downloadQR() {
+            const canvas = document.getElementById('qr-canvas');
+            const url = canvas.toDataURL("image/png");
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "QR_Code_Hermawan.png";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // 6. Fitur QR Scanner
+        let html5QrCode = null;
+
+        function displayScanResult(text) {
+            const resultBox = document.getElementById('scan-result-container');
+            const resultTextDiv = document.getElementById('scan-result-text');
+            resultBox.style.display = 'block';
+
+            // Cek apakah URL
+            if (text.startsWith('http://') || text.startsWith('https://')) {
+                resultTextDiv.innerHTML = `<a href="${text}" target="_blank" class="link-highlight">${text} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+            } else {
+                resultTextDiv.textContent = text;
+            }
+            stopCamera();
+        }
+
+        function startCameraScan() {
+            document.getElementById('scan-result-container').style.display = 'none';
+            document.getElementById('reader-container').style.display = 'block';
+
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("reader");
+            }
+            
+            // Konfigurasi kamera belakang jika ada
+            html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 250, height: 250 } },
+                (decodedText) => { displayScanResult(decodedText); },
+                (errorMessage) => { /* Abaikan error per frame */ }
+            ).catch((err) => {
+                alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
+                document.getElementById('reader-container').style.display = 'none';
+            });
+        }
+
+        function stopCamera() {
+            if (html5QrCode && html5QrCode.isScanning) {
+                html5QrCode.stop().then(() => {
+                    document.getElementById('reader-container').style.display = 'none';
+                }).catch(err => console.log("Gagal menghentikan kamera", err));
+            } else {
+                document.getElementById('reader-container').style.display = 'none';
+            }
+        }
+
+        function handleFileScan(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            document.getElementById('scan-result-container').style.display = 'none';
+            stopCamera();
+
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("reader");
+            }
+
+            html5QrCode.scanFile(file, true)
+                .then(decodedText => { displayScanResult(decodedText); })
+                .catch(err => { alert("Tidak ditemukan QR Code pada gambar tersebut."); });
+                
+            // Reset input file agar bisa scan file yg sama berkali-kali jika perlu
+            event.target.value = ""; 
+        }
+
+        // 7. Fitur File Preview
+        function handleFilePreview(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const ext = file.name.split('.').pop().toLowerCase();
+            const allowed = ['html', 'css', 'js'];
+            
+            if (!allowed.includes(ext)) {
+                alert("Format file tidak didukung! Hanya .html, .css, atau .js");
+                event.target.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+            const previewArea = document.getElementById('preview-area');
+            const iframe = document.getElementById('preview-iframe');
+            const pre = document.getElementById('preview-pre');
+            const codeBlock = pre.querySelector('code');
+
+            reader.onload = function(e) {
+                const content = e.target.result;
+                previewArea.style.display = 'block';
+
+                if (ext === 'html') {
+                    iframe.style.display = 'block';
+                    pre.style.display = 'none';
+                    iframe.srcdoc = content;
+                } else {
+                    iframe.style.display = 'none';
+                    pre.style.display = 'block';
+                    codeBlock.textContent = content;
+                }
+            };
+            
+            reader.readAsText(file);
+            event.target.value = ""; // Reset form
+        }
+    </script>
+</body>
+</html>
